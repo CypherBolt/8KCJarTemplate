@@ -96,7 +96,7 @@ void odom_test(){
     Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
     Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-    task::sleep(20);
+    vex::this_thread::sleep_for(10);
   }
 }
 
@@ -126,4 +126,24 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(18, 0, 180);
   chassis.holonomic_drive_to_pose(0, 18, 270);
   chassis.holonomic_drive_to_pose(0, 0, 0);
+}
+
+void leftTop(){
+  intakeBottom.spin(reverse,100,pct);
+  chassis.turn_to_angle(-21);
+  chassis.drive_distance(19);
+  wait(500,msec);
+  chassis.drive_distance(5);
+  wait(500,msec);
+  chassis.drive_distance(9);
+  wait(500,msec);
+  chassis.turn_to_angle(-120);
+  chassis.drive_distance(32.5);
+  chassis.turn_to_angle(-179);
+  chassis.drive_distance(-10.1);
+  outtake.spin(fwd,100,pct);
+  intakeBottom.spin(fwd,100,pct);
+  wait(400,msec);
+  intakeBottom.stop();
+  intakeBottom.spin(reverse,99,pct);
 }

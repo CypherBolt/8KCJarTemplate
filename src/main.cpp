@@ -2,7 +2,7 @@
 
 using namespace vex;
 competition Competition;
-bool pistondir=false;
+
 
 
 /*---------------------------------------------------------------------------*/
@@ -52,7 +52,7 @@ motor_group(leftMotorLB,leftMotorLF,leftMotorLT1),
 motor_group(rightMotorRB, rightMotorRF, rightMotorRT1),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT20,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.125,
@@ -119,6 +119,7 @@ bool auto_started = false;
 
 void pre_auton() {
   // Initializing Robot Configuration. DO NOT REMOVE!
+  //Initializes the gyro so it restarts at 0. 
   vexcodeInit();
   default_constants();
 
@@ -132,7 +133,7 @@ void pre_auton() {
     Brain.Screen.printAt(5, 120, "Selected Auton:");
     switch(current_auton_selection){
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Left side push");
         break;
       case 1:
         Brain.Screen.printAt(5, 140, "Auton 2");
@@ -162,7 +163,7 @@ void pre_auton() {
     } else if (current_auton_selection == 8){
       current_auton_selection = 0;
     }
-    task::sleep(10);
+    vex::this_thread::sleep_for(10);
   }
 }
 
@@ -173,11 +174,19 @@ void pre_auton() {
  * autons.cpp and declared in autons.h.
  */
 
+
 void autonomous(void) {
   auto_started = true;
+  // chassis.drive_distance(24);
+  // wait(200,msec);
+  // chassis.turn_to_angle(270);
+  // chassis.drive_distance(3);
+
+
+
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      leftTop();
       break;
     case 1:         
       drive_test();
@@ -215,8 +224,16 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  bool toggleA = true; 
-  top.set(pistondir);
+  
+  bool toggleA = true;
+  bool toggleB = true; 
+  bool toggleX=true;
+
+  bool scraperDir=false;
+  bool descorerDir=false;
+  bool toggleStoring = true; 
+  scraper.set(scraperDir);
+  descorer.set(descorerDir);
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -230,29 +247,55 @@ void usercontrol(void) {
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
-    if (ControllerMain.ButtonR1.pressing()){
-      intake.spin(fwd,127,pct);
+    if (ControllerMain.ButtonR2.pressing()){
+      intakeBottom.spin(fwd,127,pct);
     }
-
+    else if (ControllerMain.ButtonR1.pressing()){
+      intakeBottom.spin(reverse,127,pct);
+    }
+    else{
+      intakeBottom.stop();
+    }
+    
+    
     if (ControllerMain.ButtonL1.pressing()){
-      intake.spin(reverse,127,pct);
+      outtake.spin(fwd,127,pct);
+    } 
+    else if (ControllerMain.ButtonL2.pressing()){
+      outtake.spin(reverse,127,pct);
+    } 
+    else{
+      outtake.stop();
     }
+    
+
 
     if (ControllerMain.ButtonA.pressing()){
       if(toggleA){
-        pistondir=!pistondir;
-        top.set(pistondir);
+        scraperDir=!scraperDir;
+        scraper.set(scraperDir);
         toggleA = false; 
       }
     } else{
       toggleA = true; 
     }
 
+    
+   if (ControllerMain.ButtonX.pressing()){
+    if (toggleX){
+      descorerDir=!descorerDir;
+      descorer.set(descorerDir);
+      toggleX=false;
+    }
+   }else{
+    toggleX=true;
+   }
 
   wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
-  }
+    }
 }
+
 
 //
 // Main will set up the competition functions and callbacks.

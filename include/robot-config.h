@@ -15,12 +15,13 @@ extern motor rightMotorRB;
 extern motor rightMotorRF;
 extern motor leftMotorLT1;
 extern motor rightMotorRT1;
-extern motor intake1;
-extern motor intake2;
+extern motor intakeBottom;
+extern motor outtake;
 
-extern motor_group intake;
 
-extern digital_out top;
+
+extern digital_out scraper;
+extern digital_out descorer;
 
 
 

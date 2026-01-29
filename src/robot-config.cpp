@@ -15,22 +15,27 @@ brain  Brain;
 
 void vexcodeInit( void ) {
   // nothing to initialize
+  
 }
+
+
+
 controller ControllerMain = controller(primary);
 
-motor leftMotorLB = motor(PORT15 , ratio6_1, false); //left back
-motor leftMotorLF = motor(PORT16, ratio6_1, false); //left front
+motor leftMotorLB = motor(PORT15 , ratio6_1, true); //left back
+motor leftMotorLF = motor(PORT16, ratio6_1, true); //left front
 motor leftMotorLT1 = motor(PORT14, ratio6_1, false); //left upside down
 
 motor rightMotorRB = motor(PORT17, ratio6_1, false); //right back
 motor rightMotorRF = motor(PORT8, ratio6_1, false); //right front
-motor rightMotorRT1 = motor(PORT9, ratio6_1, false); //right upside down
+motor rightMotorRT1 = motor(PORT9, ratio6_1, true); //right upside down
 
-motor intakeL = motor(PORT7, ratio6_1, true);
-motor intakeR = motor(PORT10, ratio6_1, true);
+motor intakeBottom = motor(PORT7, ratio6_1, true);
+motor outtake = motor(PORT10, ratio6_1, true);
 
-motor_group intake = motor_group(intakeL, intakeR);
+// motor_group intake = motor_group(intakeBottom, intakeTop);
 
-digital_out top = digital_out(Brain.ThreeWirePort.A);
+digital_out scraper = digital_out(Brain.ThreeWirePort.A);
+digital_out descorer = digital_out(Brain.ThreeWirePort.B);
 
 
