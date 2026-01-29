@@ -228,6 +228,8 @@ void usercontrol(void) {
   bool toggleA = true;
   bool toggleB = true; 
   bool toggleX=true;
+  bool toggleY= true; 
+  bool middleDir = true; 
 
   bool scraperDir=false;
   bool descorerDir=false;
@@ -270,30 +272,40 @@ void usercontrol(void) {
     
 
 
-    if (ControllerMain.ButtonA.pressing()){
-      if(toggleA){
+    if (ControllerMain.ButtonY.pressing()){
+      if(toggleY){
         scraperDir=!scraperDir;
         scraper.set(scraperDir);
-        toggleA = false; 
+        toggleY = false; 
       }
     } else{
-      toggleA = true; 
+      toggleY = true; 
     }
 
     
-   if (ControllerMain.ButtonX.pressing()){
-    if (toggleX){
+   if (ControllerMain.ButtonA.pressing()){
+    if (toggleA){
       descorerDir=!descorerDir;
       descorer.set(descorerDir);
-      toggleX=false;
+      toggleA=false;
     }
    }else{
-    toggleX=true;
+    toggleA=true;
    }
+
+  if(ControllerMain.ButtonX.pressing()){
+    if(toggleX){
+      middleDir=!middleDir;
+      middle.set(middleDir);
+      toggleX=false;
+    } 
+  } else{
+    toggleX = true; 
+  }
 
   wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
-    }
+  }
 }
 
 

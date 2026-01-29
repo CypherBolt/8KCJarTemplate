@@ -35,7 +35,8 @@ motor outtake = motor(PORT10, ratio6_1, true);
 
 // motor_group intake = motor_group(intakeBottom, intakeTop);
 
-digital_out scraper = digital_out(Brain.ThreeWirePort.A);
-digital_out descorer = digital_out(Brain.ThreeWirePort.B);
+digital_out scraper = digital_out(Brain.ThreeWirePort.C);
+digital_out descorer = digital_out(Brain.ThreeWirePort.A);
+digital_out middle = digital_out(Brain.ThreeWirePort.A);
 
 //what the sigma 

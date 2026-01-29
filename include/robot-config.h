@@ -22,6 +22,7 @@ extern motor outtake;
 
 extern digital_out scraper;
 extern digital_out descorer;
+extern digital_out middle;
 
 
 

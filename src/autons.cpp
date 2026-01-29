@@ -147,3 +147,27 @@ void leftTop(){
   intakeBottom.stop();
   intakeBottom.spin(reverse,99,pct);
 }
+
+void rightTop(){
+
+  scraper.set(true);
+  intakeBottom.spin(reverse,100,pct);
+  chassis.turn_to_angle(21);
+  chassis.drive_distance(19);
+  wait(500,msec);
+  chassis.drive_distance(5);
+  wait(500,msec);
+  chassis.drive_distance(9);
+  wait(500,msec);
+  chassis.turn_to_angle(120);
+  chassis.drive_distance(32.5);
+  chassis.turn_to_angle(179);
+  chassis.drive_distance(-10.1);
+  outtake.spin(fwd,100,pct);
+  intakeBottom.spin(fwd,100,pct);
+  wait(400,msec);
+  intakeBottom.stop();
+  intakeBottom.spin(reverse,99,pct);
+
+}
+//hello world
